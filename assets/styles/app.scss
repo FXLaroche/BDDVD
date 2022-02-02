@@ -1,8 +1,10 @@
 @import 'variables.scss';
+@import '~bootstrap/scss/bootstrap';
 
-body {
+body, nav {
     margin:0;
-    background: $main-color;
+    background: radial-gradient($secondary-color, $main-color);
     background-repeat: no-repeat;
+    background-size: contain;
     color: $light;
 }

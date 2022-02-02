@@ -24,7 +24,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_login';
+    public const LOGIN_ROUTE = 'login';
 
     private $entityManager;
     private $urlGenerator;
@@ -93,7 +93,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
             $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
             return new RedirectResponse($targetPath);
         }
-        return new RedirectResponse($this->urlGenerator->generate('user_index'));
+        return new RedirectResponse($this->urlGenerator->generate('film_index'));
     }
 
     protected function getLoginUrl()
