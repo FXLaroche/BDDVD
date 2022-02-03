@@ -26,6 +26,16 @@ class FilmController extends AbstractController
      */
     public function index(FilmRepository $filmRepository): Response
     {
+        return $this->render('film/index.html.twig', [
+            'films' => $filmRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/myfilms", name="myfilms",  methods={"GET"})
+     */
+    public function myIndex(FilmRepository $filmRepository): Response
+    {
         $user = $this->getUser();
 
         if ($user instanceof User) {
@@ -34,16 +44,7 @@ class FilmController extends AbstractController
             ]);
         }
         return $this->render('film/index.html.twig');
-    }
-
-    /**
-     * @Route("/myfilms", name="mylist",  methods={"GET"})
-     */
-    public function myIndex(FilmRepository $filmRepository): Response
-    {
-        return $this->render('film/index.html.twig', [
-            'films' => $filmRepository->findAll(),
-        ]);
+       
     }
 
     /**
@@ -56,6 +57,9 @@ class FilmController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('hasFilm')->getData()) {
+                $film->addOwner($this->getUser());
+            }
             $entityManager->persist($film);
             $entityManager->flush();
 
@@ -125,9 +129,23 @@ class FilmController extends AbstractController
     public function edit(Request $request, Film $film, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(FilmType::class, $film);
+
+
+        $user = $this->getUser();
+        $hasFilm = $form->get('hasFilm');
+
+        if ($film->getOwner()->contains($user)) {
+            $hasFilm->setData(true);
+        }
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$film->getOwner()->contains($user) && $hasFilm->getData()) {
+                $film->addOwner($user);
+            } elseif ($film->getOwner()->contains($user) && !$hasFilm->getData()) {
+                $film->removeOwner($user);
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('film_index', [], Response::HTTP_SEE_OTHER);
