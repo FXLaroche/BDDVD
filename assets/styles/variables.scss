@@ -1,2 +1,8 @@
-$main-color: radial-gradient(#a4aadb, #0b1388);
+$secondary: #a4aadb;
 $light: #fffbfb;
+$primary: #040949;
+
+$theme-colors:(
+    'primary': $primary,
+    'secondary': $secondary,
+)
