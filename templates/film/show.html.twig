@@ -1,38 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Film{% endblock %}
+{% block title %}Film
+{% endblock %}
 
 {% block body %}
-    <h1>Film</h1>
+	<h1>{{ film.title}}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ film.id }}</td>
-            </tr>
-            <tr>
-                <th>Omdb_id</th>
-                <td>{{ film.omdbId }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ film.title }}</td>
-            </tr>
-            <tr>
-                <th>Year</th>
-                <td>{{ film.year }}</td>
-            </tr>
-            <tr>
-                <th>Plot</th>
-                <td>{{ film.plot }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('film_index') }}">back to list</a>
+	<div class="container">
+		<div class="row justify-content-center">
 
-    <a href="{{ path('film_edit', {'id': film.id}) }}">edit</a>
+			<div class="col-10 col-md-6">
 
-    {{ include('film/_delete_form.html.twig') }}
+				<img src="{{ film.poster }}" alt="Affiche de {{ film.title }}">
+
+			</div>
+			<div class="col-10 col-md-6">
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Année:</th>
+							<td>{{ film.year }}</td>
+						</tr>
+						<tr>
+							<th>Résumé:</th>
+							<td>{{ film.plot }}</td>
+						</tr>
+					</tbody>
+				</table>
+				{% if app.user in film.owner %}
+					{% include "borrowing/_form.html.twig" %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<div class="mt-3 ms-5">
+		<a class="btn btn-primary" href="{{ path('film_list', {'id': app.user.id}) }}">Ma liste</a>
+		<a class="btn btn-primary" href="{{ path('film_index') }}">Tous les films</a>
+
+		<a class="btn btn-primary" href="{{ path('film_edit', {'id': film.id}) }}">Modifier</a>
+
+		{{ include('film/_delete_form.html.twig') }}
+
+	</div>
 {% endblock %}

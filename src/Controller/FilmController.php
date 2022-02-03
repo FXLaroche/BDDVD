@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Borrowing;
 use App\Entity\Film;
 use App\Entity\User;
+use App\Form\BorrowingType;
 use App\Form\FilmType;
+use App\Repository\BorrowingRepository;
 use App\Repository\FilmRepository;
 use App\Service\ApiAccess;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,19 +35,17 @@ class FilmController extends AbstractController
     }
 
     /**
-     * @Route("/myfilms", name="myfilms",  methods={"GET"})
+     * @Route("/user/{id}", name="list",  methods={"GET"})
      */
-    public function myIndex(FilmRepository $filmRepository): Response
+    public function otherIndex(User $user, FilmRepository $filmRepository)
     {
-        $user = $this->getUser();
-
         if ($user instanceof User) {
             return $this->render('film/index.html.twig', [
                 'films' => $filmRepository->findByOwner($user),
+                'shownUser' => $user,
             ]);
         }
         return $this->render('film/index.html.twig');
-       
     }
 
     /**
@@ -114,12 +115,34 @@ class FilmController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show", methods={"GET"})
+     * @Route("/{id}", name="show", methods={"GET", "POST"})
      */
-    public function show(Film $film): Response
+    public function show(Film $film, BorrowingRepository $borrowingRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $borrowedStatus = $borrowingRepository->findByOwnerFilm($this->getUser(), $film);
+        
+        $borrowing = new Borrowing();
+        $form = $this->createForm(BorrowingType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('borrower')->getData() == $this->getUser()) {
+                $this->addFlash('notice', 'Vous ne pouvez pas prêter à vous-même.');
+            } else {
+            $borrowing->setBorrower($form->get('borrower')->getData())
+                ->setOwner($this->getUser())
+                ->setDateBorrowed($form->get('dateBorrowed')->getData())
+                ->setFilm($film);
+                
+            $entityManager->persist($borrowing);
+            $entityManager->flush();
+            }
+        }
+
         return $this->render('film/show.html.twig', [
+            'borrow_form' => $form->createView(),
             'film' => $film,
+            'borrowed' => $borrowedStatus,
         ]);
     }
 
@@ -158,7 +181,7 @@ class FilmController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"POST"})
+     * @Route("/delete/{id}", name="delete", methods={"POST"})
      */
     public function delete(Request $request, Film $film, EntityManagerInterface $entityManager): Response
     {

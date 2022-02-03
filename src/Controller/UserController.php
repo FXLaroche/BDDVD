@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_USER")
      * @Route("/", name="index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response

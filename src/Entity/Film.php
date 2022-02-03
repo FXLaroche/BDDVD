@@ -52,9 +52,15 @@ class Film
      */
     private ?string $poster;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="film", orphanRemoval=true)
+     */
+    private $borrowings;
+
     public function __construct()
     {
         $this->owner = new ArrayCollection();
+        $this->borrowings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,6 +148,36 @@ class Film
     public function setPoster(?string $poster): self
     {
         $this->poster = $poster;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Borrowing[]
+     */
+    public function getBorrowings(): Collection
+    {
+        return $this->borrowings;
+    }
+
+    public function addBorrowing(Borrowing $borrowing): self
+    {
+        if (!$this->borrowings->contains($borrowing)) {
+            $this->borrowings[] = $borrowing;
+            $borrowing->setFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBorrowing(Borrowing $borrowing): self
+    {
+        if ($this->borrowings->removeElement($borrowing)) {
+            // set the owning side to null (unless already changed)
+            if ($borrowing->getFilm() === $this) {
+                $borrowing->setFilm(null);
+            }
+        }
 
         return $this;
     }

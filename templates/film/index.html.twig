@@ -11,7 +11,10 @@
 			Liste Complète
 		{% endif %}
 	</h1>
-	<a class="btn btn-primary ms-2" href="{{ path('film_new') }}">Ajouter un film</a>
+	{% if shownUser is defined and app.user == shownUser %}
+		<a class="btn btn-primary ms-2" href="{{ path('film_new') }}">Ajouter un film</a>
+	{% endif %}
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -29,8 +32,8 @@
 					<td>{{ film.year }}</td>
 
 					<td>
-						<a href="{{ path('film_show', {'id': film.id}) }}">show</a>
-						<a href="{{ path('film_edit', {'id': film.id}) }}">edit</a>
+						<a class="btn btn-primary" href="{{ path('film_show', {'id': film.id}) }}">Détail</a>
+
 					</td>
 				</tr>
 			{% else %}

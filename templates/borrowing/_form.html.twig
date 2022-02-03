@@ -1,0 +1,30 @@
+{% if borrowed is empty %}
+{{ form_start(borrow_form) }}
+
+{{ form_row(borrow_form.borrowed) }}
+<div id="borrowForm" hidden>
+	{{ form_row(borrow_form.dateBorrowed) }}
+	{{ form_row(borrow_form.borrower) }}
+	{{ form_row(borrow_form.submit) }}
+
+</div>
+{{ form_end(borrow_form) }}
+
+{% else %}
+<p>Prêté ✅</p>
+<p>À: {{ borrowed.borrower.username }} </p>
+<p>Le: {{ borrowed.dateBorrowed|date("d/m/Y") }}</p>
+
+{% include "borrowing/_remove_borrowing_form.html.twig" %}
+{% endif %}
+
+<script>
+	console.log(document.getElementById('borrowing_borrowed').checked);
+document.getElementById('borrowing_borrowed').addEventListener('click', (e) => {
+if (!document.getElementById('borrowing_borrowed').checked) {
+document.getElementById('borrowForm').hidden = true;
+} else {
+document.getElementById('borrowForm').hidden = false;
+}
+})
+</script>

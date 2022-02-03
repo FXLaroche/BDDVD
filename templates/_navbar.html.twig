@@ -1,14 +1,15 @@
 <nav class="navbar navbar-expand-md navbar-light">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="{{ path('film_myfilms') }}"><img src="{{ asset('build/images/DBDVD.png') }}" alt="DBDVD"></a>
+		<a class="navbar-brand" href="{{ path('film_list', {'id': app.user.id}) }}"><img src="{{ asset('build/images/DBDVD.png') }}" alt="DBDVD"></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
-				<a class="nav-link menu active" aria-current="page" href=" {{ path('film_myfilms') }} ">Mes DVDs</a>
+				<a class="nav-link menu active" aria-current="page" href=" {{ path('film_list', {'id': app.user.id}) }} ">Mes DVDs</a>
 				<a class="nav-link menu" href="{{ path('film_index') }}">Tous les DVDs</a>
 				<a class="nav-link menu" href="{{ path('film_new') }}">Ajouter un film</a>
+				<a class="nav-link menu" href="{{ path('user_index') }}">Utilisateurs</a>
 				<a class="nav-link menu" href="{{ path('logout') }}" tabindex="-1" aria-disabled="true">Déconnexion</a>
 			</div>
 		</div>

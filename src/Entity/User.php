@@ -51,9 +51,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private Collection $films;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="owner", orphanRemoval=true)
+     */
+    private $borrowings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="borrower", orphanRemoval=true)
+     */
+    private $borroweds;
+
     public function __construct()
     {
         $this->films = new ArrayCollection();
+        $this->borrowings = new ArrayCollection();
+        $this->borroweds = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -174,6 +186,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->films->removeElement($film)) {
             $film->removeOwner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Borrowing[]
+     */
+    public function getBorrowings(): Collection
+    {
+        return $this->borrowings;
+    }
+
+    public function addBorrowing(Borrowing $borrowing): self
+    {
+        if (!$this->borrowings->contains($borrowing)) {
+            $this->borrowings[] = $borrowing;
+            $borrowing->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBorrowing(Borrowing $borrowing): self
+    {
+        if ($this->borrowings->removeElement($borrowing)) {
+            // set the owning side to null (unless already changed)
+            if ($borrowing->getOwner() === $this) {
+                $borrowing->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Borrowing[]
+     */
+    public function getBorroweds(): Collection
+    {
+        return $this->borroweds;
+    }
+
+    public function addBorrowed(Borrowing $borrowed): self
+    {
+        if (!$this->borroweds->contains($borrowed)) {
+            $this->borroweds[] = $borrowed;
+            $borrowed->setBorrower($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBorrowed(Borrowing $borrowed): self
+    {
+        if ($this->borroweds->removeElement($borrowed)) {
+            // set the owning side to null (unless already changed)
+            if ($borrowed->getBorrower() === $this) {
+                $borrowed->setBorrower(null);
+            }
         }
 
         return $this;

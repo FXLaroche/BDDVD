@@ -14,7 +14,7 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('film_myfilms');
+            return $this->redirectToRoute('film_list', ['id'=>$this->getUser()->getId()]);
         }
         return $this->render('home/index.html.twig');
     }
