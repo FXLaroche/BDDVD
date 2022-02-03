@@ -93,7 +93,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
             $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
             return new RedirectResponse($targetPath);
         }
-        return new RedirectResponse($this->urlGenerator->generate('film_index'));
+        return new RedirectResponse($this->urlGenerator->generate('film_myfilms'));
     }
 
     protected function getLoginUrl()

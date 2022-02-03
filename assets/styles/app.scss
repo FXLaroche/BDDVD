@@ -4,16 +4,25 @@
 body, nav{
     margin:0;
     background: radial-gradient($secondary, $primary);
-    
     background-size: contain;
     color: $light;
 }
-#results {
-    color: $dark;
+
+body {
+    height: 100vh;
 }
 
 .filmResult:hover {
     text-decoration: underline;
     background-color: beige;
     cursor: pointer;
+}
+
+#results {
+    color: $dark;
+}
+
+
+#title-div {
+    height: 100vh;
 }

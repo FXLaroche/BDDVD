@@ -14,7 +14,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @IsGranted("ROLE_USER")
  * @Route("/user", name="user_")
  */
 class UserController extends AbstractController
@@ -31,7 +30,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new", methods={"GET", "POST"})
+     * @Route("/new", name="register", methods={"GET", "POST"})
      */
     public function new(
         Request $request,
@@ -59,6 +58,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/{id}", name="show", methods={"GET"})
      */
     public function show(User $user): Response
@@ -69,6 +69,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/{id}/edit", name="edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
