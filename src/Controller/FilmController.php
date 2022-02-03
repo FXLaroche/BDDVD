@@ -6,9 +6,11 @@ use App\Entity\Film;
 use App\Entity\User;
 use App\Form\FilmType;
 use App\Repository\FilmRepository;
+use App\Service\ApiAccess;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,6 +66,47 @@ class FilmController extends AbstractController
             'film' => $film,
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function searchFilms(Request $request, ApiAccess $apiAccess): ?JsonResponse
+    {
+        $filmList = [];
+        $string = "Lord";
+        if (null !== $request->request->get('searchTitle')) {
+            $string = (string)$request->request->get('searchTitle');
+
+            if (is_string($this->getParameter('app.api_key'))) {
+                $apiKey = $this->getParameter('app.api_key');
+
+                $filmList = $apiAccess->searchApi($string, $apiKey);
+
+                return new JsonResponse($filmList);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @Route("/get", name="get")
+     */
+    public function getFilm(Request $request, ApiAccess $apiAccess): ?JsonResponse
+    {
+        $film = "";
+        if (null !== $request->request->get('getFilm')) {
+            $filmId = trim((string)$request->request->get('getFilm'));
+
+            if (is_string($this->getParameter('app.api_key'))) {
+                $apiKey = $this->getParameter('app.api_key');
+
+                $film = $apiAccess->getApi((string)$filmId, (string)$apiKey);
+
+                return new JsonResponse($film);
+            }
+        }
+        return null;
     }
 
     /**

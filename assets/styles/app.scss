@@ -1,10 +1,19 @@
 @import 'variables.scss';
 @import '~bootstrap/scss/bootstrap';
 
-body, nav {
+body, nav{
     margin:0;
-    background: radial-gradient($secondary-color, $main-color);
-    background-repeat: no-repeat;
+    background: radial-gradient($secondary, $primary);
+    
     background-size: contain;
     color: $light;
+}
+#results {
+    color: $dark;
+}
+
+.filmResult:hover {
+    text-decoration: underline;
+    background-color: beige;
+    cursor: pointer;
 }

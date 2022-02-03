@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0ade4c3a0ab89e4fb010de552206baca",
+    "content-hash": "9e76d63b7fea4cf01b257b730c4a46e1",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -7674,6 +7674,45 @@
                 }
             ],
             "time": "2022-01-26T16:05:39+00:00"
+        },
+        {
+            "name": "twbs/bootstrap-icons",
+            "version": "v1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/icons.git",
+                "reference": "d70369911c85ce6617fbe27f1c03b299c56ddc1c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/d70369911c85ce6617fbe27f1c03b299c56ddc1c",
+                "reference": "d70369911c85ce6617fbe27f1c03b299c56ddc1c",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "Official open source SVG icon library for Bootstrap",
+            "homepage": "https://icons.getbootstrap.com/",
+            "keywords": [
+                "bootstrap",
+                "icon font",
+                "icons",
+                "svg"
+            ],
+            "support": {
+                "issues": "https://github.com/twbs/icons/issues",
+                "source": "https://github.com/twbs/icons/tree/v1.8.0"
+            },
+            "time": "2022-01-31T18:40:54+00:00"
         },
         {
             "name": "twig/extra-bundle",
