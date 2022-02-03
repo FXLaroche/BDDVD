@@ -3,18 +3,21 @@ const title = document.getElementById('film_title');
 const year = document.getElementById('film_year');
 const plot = document.getElementById('film_plot');
 const poster = document.getElementById('film_poster');
+const omdbId = document.getElementById('film_omdb_id');
 
 field.value = '';
 title.value = '';
 year.value = '';
 plot.value = '';
 poster.value = '';
+omdbId.value = '';
 
 field.addEventListener('change', (e) => {
     title.value = '';
     year.value = '';
     plot.value = '';
     poster.value = '';
+    omdbId.value = '';
 
     e.preventDefault();
 
@@ -57,6 +60,9 @@ field.addEventListener('change', (e) => {
                         .then((data) => {
                             const filmData = JSON.parse(data);
 
+                            document.body.scrollTop = 0;
+                            document.documentElement.scrollTop = 0;
+
                             title.value = filmData.Title;
                             year.value = filmData.Year;
                             plot.value = filmData.Plot;
@@ -65,6 +71,7 @@ field.addEventListener('change', (e) => {
                             } else {
                                 poster.value = filmData.Poster;
                             }
+                            omdbId.value = filmData.imdbID;
                         });
                 };
             }

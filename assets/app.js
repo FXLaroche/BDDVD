@@ -13,3 +13,5 @@ import './scripts/searchAjax';
 import './bootstrap';
 
 require('bootstrap');
+
+require('bootstrap-icons/font/bootstrap-icons.css');
