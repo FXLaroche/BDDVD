@@ -5,44 +5,52 @@
 
 {% block body %}
 	<h1>
-		{% if app.request.getPathInfo() == "/film/myfilms" %}
+		{% if app.request.getPathInfo() == ("/film/user/" ~ app.user.id) %}
 			Mes DVDs
-		{% else %}
+		{% else if  app.request.getPathInfo() == "/film/" %}
 			Liste Complète
+		{% else %}
+			Liste de
+			{{ shownUser.username }}
 		{% endif %}
 	</h1>
 	{% if shownUser is defined and app.user == shownUser %}
 		<a class="btn btn-primary ms-2" href="{{ path('film_new') }}">Ajouter un film</a>
 	{% endif %}
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Titre</th>
-				<th>Année</th>
-
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
+	<div class="container-fluid">
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 gy-10 d-inline-flex">
 			{% for film in films %}
-				<tr>
-					<td><img src="{{ film.poster }}" alt="" srcset=""></td>
-					<td>{{ film.title }}</td>
-					<td>{{ film.year }}</td>
-
-					<td>
-						<a class="btn btn-primary" href="{{ path('film_show', {'id': film.id}) }}">Détail</a>
-
-					</td>
-				</tr>
+				<a class="text-decoration-none col film-card d-flex justify-content-center" href="{{ path('film_show', {'id': film.id}) }}">
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<img src="{{ film.poster }}" alt="Affiche de {{ film.poster }}" width="150">
+								</td>
+								<td class="d-flex text-white">
+									<table class="">
+										<thead>
+											<th class="fw-bold">
+												{{ film.title }}
+											</th>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													{{ film.year }}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</a>
 			{% else %}
-				<tr>
-					<td colspan="6">no records found</td>
-				</tr>
+				Aucun film pour cette personne.
 			{% endfor %}
-		</tbody>
-	</table>
-
-
+		</div>
+	</div>
 {% endblock %}

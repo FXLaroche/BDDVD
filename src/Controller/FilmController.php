@@ -10,6 +10,7 @@ use App\Form\FilmType;
 use App\Repository\BorrowingRepository;
 use App\Repository\FilmRepository;
 use App\Service\ApiAccess;
+use DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,7 +38,7 @@ class FilmController extends AbstractController
     /**
      * @Route("/user/{id}", name="list",  methods={"GET"})
      */
-    public function otherIndex(User $user, FilmRepository $filmRepository)
+    public function otherIndex(User $user, FilmRepository $filmRepository): Response
     {
         if ($user instanceof User) {
             return $this->render('film/index.html.twig', [
@@ -45,7 +46,6 @@ class FilmController extends AbstractController
                 'shownUser' => $user,
             ]);
         }
-        return $this->render('film/index.html.twig');
     }
 
     /**
@@ -58,7 +58,7 @@ class FilmController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('hasFilm')->getData()) {
+            if ($form->get('hasFilm')->getData() && $this->getUser() instanceof User) {
                 $film->addOwner($this->getUser());
             }
             $entityManager->persist($film);
@@ -117,10 +117,12 @@ class FilmController extends AbstractController
     /**
      * @Route("/{id}", name="show", methods={"GET", "POST"})
      */
-    public function show(Film $film, BorrowingRepository $borrowingRepository, Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $borrowedStatus = $borrowingRepository->findByOwnerFilm($this->getUser(), $film);
-        
+    public function show(
+        Film $film,
+        BorrowingRepository $borrowingRepository,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
         $borrowing = new Borrowing();
         $form = $this->createForm(BorrowingType::class);
         $form->handleRequest($request);
@@ -129,21 +131,33 @@ class FilmController extends AbstractController
             if ($form->get('borrower')->getData() == $this->getUser()) {
                 $this->addFlash('notice', 'Vous ne pouvez pas prêter à vous-même.');
             } else {
-            $borrowing->setBorrower($form->get('borrower')->getData())
-                ->setOwner($this->getUser())
-                ->setDateBorrowed($form->get('dateBorrowed')->getData())
-                ->setFilm($film);
-                
-            $entityManager->persist($borrowing);
-            $entityManager->flush();
+                if (
+                    $form->get('borrower')->getData() instanceof User &&
+                    $this->getUser() instanceof User &&
+                    $form->get('dateBorrowed')->getData() instanceof DateTimeInterface
+                ) {
+                    $borrowing->setBorrower($form->get('borrower')->getData())
+
+                        ->setOwner($this->getUser())
+                        ->setDateBorrowed($form->get('dateBorrowed')->getData())
+                        ->setFilm($film);
+
+                    $entityManager->persist($borrowing);
+                    $entityManager->flush();
+                }
             }
         }
+        if ($this->getUser() instanceof User) {
+            $borrowedStatus = $borrowingRepository->findByOwnerFilm($this->getUser(), $film);
 
-        return $this->render('film/show.html.twig', [
-            'borrow_form' => $form->createView(),
-            'film' => $film,
-            'borrowed' => $borrowedStatus,
-        ]);
+            return $this->render('film/show.html.twig', [
+                'borrow_form' => $form->createView(),
+                'film' => $film,
+                'borrowed' => $borrowedStatus,
+            ]);
+        } else {
+            return $this->render('film/show.html.twig');
+        }
     }
 
     /**
@@ -160,10 +174,10 @@ class FilmController extends AbstractController
         if ($film->getOwner()->contains($user)) {
             $hasFilm->setData(true);
         }
-        
+
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $user instanceof User) {
             if (!$film->getOwner()->contains($user) && $hasFilm->getData()) {
                 $film->addOwner($user);
             } elseif ($film->getOwner()->contains($user) && !$hasFilm->getData()) {

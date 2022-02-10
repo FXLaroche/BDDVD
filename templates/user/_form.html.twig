@@ -1,4 +1,11 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary mt-1">{{ button_label|default('Rejoindre') }}</button>
+<div id="register-form">
+	{{ form_label(form.email) }}
+	{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+	{{ form_label(form.username) }}
+	{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+	{{ form_label(form.password) }}
+	{{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+	<button class="btn btn-primary btn-lg text-secondary fw-bold mt-4">{{ button_label|default('Rejoindre') }}</button>
+</div>
 {{ form_end(form) }}

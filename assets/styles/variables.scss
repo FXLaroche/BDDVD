@@ -1,10 +1,14 @@
-$secondary: #a4dba9;
+$primary: #f0e68c;
 $color2: #a4aadb;
 $light: #fffbfb;
-$primary: #04490d;
+$secondary: #daa520;
 $color: #040949;
+$anthracite: #2b292e;
+$slategray: #708090;
 
-$theme-colors:(
+$theme-colors: (
     'primary': $primary,
     'secondary': $secondary,
+    'anthracite': $anthracite,
+    'slategray': $slategray,
 )
