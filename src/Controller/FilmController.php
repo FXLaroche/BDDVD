@@ -32,6 +32,7 @@ class FilmController extends AbstractController
     {
         return $this->render('film/index.html.twig', [
             'films' => $filmRepository->findAll(),
+            'title' => "Liste Complète",
         ]);
     }
 
@@ -41,9 +42,11 @@ class FilmController extends AbstractController
     public function otherIndex(User $user, FilmRepository $filmRepository): Response
     {
         if ($user instanceof User) {
+            $title = $user === $this->getUser() ? 'Mes DVDs' : 'Liste de ' . $user->getUsername();
             return $this->render('film/index.html.twig', [
                 'films' => $filmRepository->findByOwner($user),
                 'shownUser' => $user,
+                'title' => $title,
             ]);
         }
     }
@@ -70,6 +73,7 @@ class FilmController extends AbstractController
         return $this->renderForm('film/new.html.twig', [
             'film' => $film,
             'form' => $form,
+            'title' => 'Ajouter un film',
         ]);
     }
 
@@ -137,7 +141,6 @@ class FilmController extends AbstractController
                     $form->get('dateBorrowed')->getData() instanceof DateTimeInterface
                 ) {
                     $borrowing->setBorrower($form->get('borrower')->getData())
-
                         ->setOwner($this->getUser())
                         ->setDateBorrowed($form->get('dateBorrowed')->getData())
                         ->setFilm($film);
@@ -154,9 +157,10 @@ class FilmController extends AbstractController
                 'borrow_form' => $form->createView(),
                 'film' => $film,
                 'borrowed' => $borrowedStatus,
+                'title' => $film->getTitle(),
             ]);
         } else {
-            return $this->render('film/show.html.twig');
+            return $this->render('film/show.html.twig', ['title' => "Titre"]);
         }
     }
 
@@ -191,6 +195,7 @@ class FilmController extends AbstractController
         return $this->renderForm('film/edit.html.twig', [
             'film' => $film,
             'form' => $form,
+            'title' => 'Modifier',
         ]);
     }
 

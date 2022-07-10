@@ -7,7 +7,7 @@
 	<h1>
 		{% if app.request.getPathInfo() == ("/film/user/" ~ app.user.id) %}
 			Mes DVDs
-		{% else if  app.request.getPathInfo() == "/film/" %}
+		{% elseif  app.request.getPathInfo() == "/film/" %}
 			Liste Complète
 		{% else %}
 			Liste de

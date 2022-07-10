@@ -1,0 +1,12 @@
+<div class='banner container-fluid rounded-pill'>
+        <div class="title row align-items-center my-auto ps-md-5 rounded-pill">
+            <div>
+                {% if app.request.getPathInfo() == ("/") %}
+                    <h1>BD DVD</h1>
+                    <h2>Pour Prêter Vos DVDs à Qui Vous Voulez</h2>
+                {% else %}
+                    <h1>{{ title }}</h1>
+                {% endif %}
+            </div>
+        </div>
+</div>

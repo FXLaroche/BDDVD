@@ -14,10 +14,14 @@
 		{% endblock %}
 	</head>
 
-	<body>
+	<body class="container-fluid">
 		{% if is_granted('ROLE_USER') %}
 			{% include "_navbar.html.twig" %}
+		{% else %}
+			{% include "_navbar_anonymous.html.twig" %}
 		{% endif %}
+		{{ include("_banner.html.twig", {title: title}) }}
+		{#	{{ include ("_banner.html.twig") }}#}
 		{% block body %}{% endblock %}
 	</body>
 	{% block javascripts %}

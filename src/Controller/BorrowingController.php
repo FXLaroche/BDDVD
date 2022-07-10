@@ -14,13 +14,19 @@ class BorrowingController extends AbstractController
     /**
      * @Route("/borrowing/delete/{id}", name="borrowing_delete", methods={"POST"})
      */
-    public function delete(HttpFoundationRequest $request, Borrowing $borrowing, EntityManagerInterface $entityManager): Response
-    {
+    public function delete(
+        HttpFoundationRequest $request,
+        Borrowing $borrowing,
+        EntityManagerInterface $entityManager
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $borrowing->getId(), (string)$request->request->get('_token'))) {
             $entityManager->remove($borrowing);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('film_show', ['id' => $borrowing->getFilm()->getId()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('film_show', [
+            'id' => $borrowing->getFilm()->getId(),
+            'title' => 'Borrowing',
+        ], Response::HTTP_SEE_OTHER);
     }
 }
