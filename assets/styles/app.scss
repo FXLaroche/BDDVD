@@ -48,6 +48,15 @@ h2 {
     background: linear-gradient(to right, $primary, 90%, transparent);
 }
 
+.btnMenu {
+    transition-duration: 0.5s;
+}
+
+.btnMenu:hover {
+    transform: rotate(1turn);
+    transition-duration: 0.5s;
+}
+
 #results {
     color: $dark;
 }
