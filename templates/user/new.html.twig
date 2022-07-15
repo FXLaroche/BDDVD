@@ -3,15 +3,11 @@
 {% block title %}New User
 {% endblock %}
 {% block body %}
-
-	{% include "_navbar_anonymous.html.twig" %}
 	<div class="mt-3">
 		<div class="ms-3">
-			<h1>Inscription</h1>
 		</div>
 		<div class="container-fluid d-flex col-2 justify-content-center">
 			{{ include('user/_form.html.twig') }}
-
 		</div>
 	</div>
 {% endblock %}

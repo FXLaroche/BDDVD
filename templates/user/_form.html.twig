@@ -1,11 +1,11 @@
 {{ form_start(form) }}
-<div id="register-form">
+<div class="security-form">
 	{{ form_label(form.email) }}
 	{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
 	{{ form_label(form.username) }}
 	{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
 	{{ form_label(form.password) }}
 	{{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-	<button class="btn btn-primary btn-lg text-secondary fw-bold mt-4">{{ button_label|default('Rejoindre') }}</button>
+	<button class="btn btn-lg btn-secondary text-light fw-bold mt-4">{{ button_label|default('Rejoindre') }}</button>
 </div>
 {{ form_end(form) }}

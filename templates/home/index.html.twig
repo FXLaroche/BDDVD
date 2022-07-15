@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container my-5 text-justify">
+	<div class="container my-5 text-justify border-top border-md-none border-secondary">
 		<div class="row">
 			<div class="col-12 col-md-6 border-md-end border-none">
 				<img src="{{ asset('build/images/home/dvdStack.jpg') }}" alt="stack dvds" class="img-fluid">
@@ -21,8 +21,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="row d-flex flex-md-row-reverse">
-			<div class="col-12 col-md-6 border-md-start border-none">
+		<div class="row d-flex flex-md-row-reverse border-top border-md-none border-secondary my-3 my-md-0">
+			<div class="col-12 col-md-6 my-3 my-md-0 border-md-start border-none">
 				<img src="{{ asset('build/images/home/family.png') }}" alt="stack dvds" class="img-fluid">
 			</div>
 			<div class="col-12 col-md-6 d-flex align-items-md-center border-md-end border-none">
@@ -32,14 +32,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mb-3">
-			<div class="col-12 col-md-6 border-md-end border-none">
+		<div class="row my-3 my-md-0 border-top border-md-none border-secondary">
+			<div class="col-12 col-md-6 my-3 my-md-0 border-md-end border-none">
 				<img src="{{ asset('build/images/home/manyMovies.jpg') }}" alt="stack dvds" class="img-fluid">
 			</div>
 			<div class="col-12 col-md-6 d-flex align-items-center text-md-justified border-md-start border-none">
 				<div>
 					<h2>Accédez à une base gigantesque</h2>
-					<p class="text-justify">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis sapiente ipsam quod est, aliquam consequatur at, non molestias laudantium tempore voluptas. Ullam corporis doloremque aspernatur quo rerum eius qui natus?</p>
+					<p class="text-justify">Notre base contient acutellement pas moins de {{ filmCount }} films, et elle ne cesse d'augmenter de jour en jour! Accédez directement à la collection de n'importe quel utilisateur de par le monde, tous les films sont disponibles! Directement alimentée par nos utilisateurs, vous pouvez ajouter vos propres films en seulement 2 clics! BD-DVD, c'est la base qui vous appartient!</p>
 				</div>
 			</div>
 		</div>

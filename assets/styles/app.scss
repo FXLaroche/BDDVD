@@ -29,13 +29,13 @@ footer {
 }
 
 .film-card {
-    border: 2px solid $slategray;
+    border: 2px solid $secondary;
     border-radius: 10%;
     justify-content: center;
     padding: 10px;
-    background: radial-gradient($slategray, $anthracite);
+    background: radial-gradient($primary, $secondary);
     &:hover {
-        background: radial-gradient($anthracite, $slategray);
+        background: radial-gradient($primary, $secondary);
     }
 
 }
@@ -68,22 +68,35 @@ footer {
     text-justify: auto !important;
 }
 
-#results {
-    color: $dark;
-}
-
-#register-form {
-    border: 2px solid $slategray;
+.security-form {
+    border: 2px solid $secondary;
     border-radius: 10%;
     padding: 10px;
     width: max-content;
+}
+
+#results {
+    color: $primary;
 }
 
 @media (min-width: 768px) {
     .border-md-start{
         border-left: solid $secondary 1px !important;
     };
+
     .border-md-end{
         border-right: solid 1px  $secondary !important;
     };
+
+    .border-md-top{
+        border-top: solid 1px  $secondary !important;
+    };
+
+    .border-md-bottom{
+        border-bottom: solid 1px  $secondary !important;
+    };
+
+    .border-md-none{
+        border: none !important;
+    }
 }
