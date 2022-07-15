@@ -14,16 +14,27 @@
 		{% endblock %}
 	</head>
 
-	<body class="container-fluid">
-		{% if is_granted('ROLE_USER') %}
-			{% include "_navbar.html.twig" %}
-		{% else %}
-			{% include "_navbar_anonymous.html.twig" %}
-		{% endif %}
+	<body class="d-flex flex-column min-vh-100 position-relative">
+		<header>
+			{% if is_granted('ROLE_USER') %}
+				{% include "_navbar.html.twig" %}
+			{% else %}
+				{% include "_navbar_anonymous.html.twig" %}
+			{% endif %}
+		</header>
 		{{ include("_banner.html.twig", {title: title}) }}
-		{#	{{ include ("_banner.html.twig") }}#}
-		{% block body %}{% endblock %}
+
+		<main class="flex-shrink-0">
+			{% block body %}
+
+			{% endblock %}
+		</main>
+
+		<footer class="mt-auto py-3">
+			{% include "footer.html.twig" %}
+		</footer>
 	</body>
+
 	{% block javascripts %}
 		{{ encore_entry_script_tags('app') }}
 	{% endblock %}

@@ -97,7 +97,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
         $userId = $this->security->getUser()->getId();
-        return new RedirectResponse($this->urlGenerator->generate('film_list', ['id'=>$userId]));
+        return new RedirectResponse($this->urlGenerator->generate('film_list', ['id' => $userId]));
     }
 
     protected function getLoginUrl()

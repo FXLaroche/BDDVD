@@ -16,6 +16,12 @@ h2 {
     font-variant-caps: small-caps;
 }
 
+footer {
+
+    height: 100px;
+    background-color: $primary;
+}
+
 .filmResult:hover {
     text-decoration: underline;
     background-color: beige;
@@ -57,13 +63,13 @@ h2 {
     transition-duration: 0.5s;
 }
 
-#results {
-    color: $dark;
+.text-justify {
+    text-align: justify;
+    text-justify: auto !important;
 }
 
-
-#title-div {
-    height: 100vh;
+#results {
+    color: $dark;
 }
 
 #register-form {
@@ -71,4 +77,13 @@ h2 {
     border-radius: 10%;
     padding: 10px;
     width: max-content;
+}
+
+@media (min-width: 768px) {
+    .border-md-start{
+        border-left: solid $secondary 1px !important;
+    };
+    .border-md-end{
+        border-right: solid 1px  $secondary !important;
+    };
 }
