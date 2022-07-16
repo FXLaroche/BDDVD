@@ -1,8 +1,9 @@
 @import 'variables.scss';
 @import '~bootstrap/scss/bootstrap';
 
-body, nav{
-    margin:0;
+body,
+nav {
+    margin: 0;
     background: $light;
     background-size: contain;
     color: $secondary;
@@ -17,7 +18,6 @@ h2 {
 }
 
 footer {
-
     height: 100px;
     background-color: $primary;
 }
@@ -29,24 +29,17 @@ footer {
 }
 
 .film-card {
-    border: 2px solid $secondary;
-    border-radius: 10%;
-    justify-content: center;
-    padding: 10px;
-    background: radial-gradient($primary, $secondary);
-    &:hover {
-        background: radial-gradient($primary, $secondary);
-    }
-
+    height: 230px;
+    filter: grayscale(0%);
 }
 
 .banner {
-    height: 250px;
+    height: 150px;
     color: $light;
     background-image: url('../images/dvdFlat.jpg');
     background-repeat: no-repeat;
     background-position: right;
-    
+
 }
 
 .title {
@@ -56,11 +49,9 @@ footer {
 
 .btnMenu {
     transition-duration: 0.5s;
-}
-
-.btnMenu:hover {
-    transform: rotate(1turn);
-    transition-duration: 0.5s;
+    &:hover {
+        transform: rotate(1turn);
+    }
 }
 
 .text-justify {
@@ -75,28 +66,51 @@ footer {
     width: max-content;
 }
 
+.film {
+    max-width: 150px;
+    width: auto;
+    max-height: 220px;
+    height: auto;
+}
+
+.bi-file-plus {
+    font-size: 120px;
+}
+
 #results {
     color: $primary;
 }
 
 @media (min-width: 768px) {
-    .border-md-start{
+    .border-md-start {
         border-left: solid $secondary 1px !important;
-    };
+    }
 
-    .border-md-end{
-        border-right: solid 1px  $secondary !important;
-    };
+    .border-md-end {
+        border-right: solid 1px $secondary  !important;
+    }
 
-    .border-md-top{
-        border-top: solid 1px  $secondary !important;
-    };
+    .border-md-top {
+        border-top: solid 1px $secondary  !important;
+    }
 
-    .border-md-bottom{
-        border-bottom: solid 1px  $secondary !important;
-    };
+    .border-md-bottom {
+        border-bottom: solid 1px $secondary  !important;
+    }
 
-    .border-md-none{
+    .border-md-none {
         border: none !important;
     }
+
+    .film-card {
+        height: 230px;
+        filter: grayscale(50%);
+        transition-duration: 0.5s;
+        &:hover {
+            filter: grayscale(0%);
+            box-shadow: (5px 5px 10px blue);
+            transition-duration: 0.5s;
+        }
+    }
+
 }
