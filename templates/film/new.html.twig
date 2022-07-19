@@ -1,26 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Film
+{% block title %}
+	New Film
 {% endblock %}
 
 {% block body %}
-	<h1>Ajouter un film</h1>
-	<div class="container">
-
-		<div class="row d-md-flex d-block">
-			<div class="col-md-6 col-11">
-				{{ include('film/_form.html.twig') }}
-			</div>
-			<div class="col-md-6 col-10">
-
-				<hr class="d-md-none">
-				<br>
-
-				<b class="d-md-none">Recherche</b>
+	<div class="container my-5 film-search">
+		<div class="row row-cols-1 row-cols-lg-2 d-flex align-items-center">
+			<div class="col-12 col-lg-4 border border-secondary rounded-3 border-5 gy-3 gy-lg-0 me-1 ms-1 ms-lg-0 bg-primary position-relative search-frame">
 				{% include "film/_searchbar.html.twig" %}
 			</div>
-			<a href="{{ path('film_index') }}">back to list</a>
+			<div class="border col-12 col-lg-7 border-secondary rounded-3 border-5 gy-3 gy-lg-0 pt-3 bg-primary position-relative search-frame">
+				<h2>
+					<span class="badge bg-secondary position-absolute top-0 start-0 translate-middle-y">Ajout</span>
+				</h2>
+				<div class="row row-cols-1 row-cols-md-2 ">
+					<div class="col-10 col-md-5 col-lg-6 col-xl-7 d-flex align-items-center justify-content-center container-fluid">
+						{{ include('film/_form.html.twig') }}
+					</div>
+					<div class="col-12 col-md-7 col-lg-6 col-xl-5 container-fluid d-flex align-items-center justify-content-center py-1">
+						<img class="form-poster" src="{{ asset('build/images/default.jpg') }}" alt="">
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-
+	<a href="{{ path('film_index') }}">Retour à la liste complète</a>
 {% endblock %}

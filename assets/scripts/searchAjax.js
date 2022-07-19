@@ -4,6 +4,7 @@ const year = document.getElementById('film_year');
 const plot = document.getElementById('film_plot');
 const poster = document.getElementById('film_poster');
 const omdbId = document.getElementById('film_omdb_id');
+const formPoster = document.getElementsByClassName('form-poster');
 
 if (field) {
     field.value = '';
@@ -32,18 +33,22 @@ if (field) {
             .then((response) => response.json())
             .then((data) => {
                 const objectData = JSON.parse(data);
-
                 const results = document.getElementById('results');
                 results.innerHTML = '';
                 for (const film of objectData.Search) {
-                    results.innerHTML += `<div class="container filmResult">
-                
-           <h4 class="d-flex bg-color-primary">${film.Title}</h4>
-           <img src="${film.Poster}" alt="Poster of ${film.Title} (${film.Year})" id="poster_${film.imdbID}" height="100">
-           ${film.Year}           
-            <input type="hidden" name="imdbId" id="imdbId" value="${film.imdbID}">
-           </div>
-           <hr>`;
+                    results.innerHTML += `
+                    <div class="container bg-secondary col-11 film-card border rounded-3 filmResult py-1 my-1">
+                        <div class="row">
+                            <img class="col-5" src="${film.Poster}" alt="Poster of ${film.Title} (${film.Year})" id="poster_${film.imdbID}">  
+                            <div class="col-7">
+                                <h4 class="d-flex bg-color-primary">${film.Title}</h4>
+                                <hr>  
+                                ${film.Year} 
+                            </div>
+                        </div>
+                        <input type="hidden" name="imdbId" id="imdbId" value="${film.imdbID}">
+                    </div>
+                    `;
                 }
             })
             .then(() => {
@@ -55,7 +60,7 @@ if (field) {
                             headers: {
                                 'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
                             },
-                            body: `getFilm=${encodeURIComponent(film.childNodes[5].value)}`,
+                            body: `getFilm=${encodeURIComponent(film.getElementsByTagName('input')[0].value)}`,
                         })
                             .then((response) => response.json())
                             .then((data) => {
@@ -67,10 +72,11 @@ if (field) {
                                 title.value = filmData.Title;
                                 year.value = filmData.Year;
                                 plot.value = filmData.Plot;
-                                if (!film.childNodes[3].naturalWidth) {
+                                if (!film.childNodes[1].childNodes[1].naturalWidth) {
                                     poster.value = '';
                                 } else {
                                     poster.value = filmData.Poster;
+                                    poster.dispatchEvent(new Event('change'));
                                 }
                                 omdbId.value = filmData.imdbID;
                             });
@@ -78,5 +84,15 @@ if (field) {
                 }
             })
             .catch((error) => console.log(error));
+    });
+}
+
+const originalPosterSource = formPoster[0].src;
+if (formPoster) {
+    poster.addEventListener('change', (e) => {
+        formPoster[0].src = poster.value;
+        formPoster[0].addEventListener('error', (err) => {
+            formPoster[0].src = originalPosterSource;
+        });
     });
 }

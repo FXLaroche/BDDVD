@@ -83,7 +83,7 @@ class FilmController extends AbstractController
     public function searchFilms(Request $request, ApiAccess $apiAccess): ?JsonResponse
     {
         $filmList = [];
-        $string = "Lord";
+        $string = "";
         if (null !== $request->request->get('searchTitle')) {
             $string = (string)$request->request->get('searchTitle');
 

@@ -22,15 +22,9 @@ footer {
     background-color: $primary;
 }
 
-.filmResult:hover {
-    text-decoration: underline;
-    background-color: beige;
-    cursor: pointer;
-}
-
 .film-card {
-    height: 230px;
     filter: grayscale(0%);
+    color: $light;
 }
 
 .banner {
@@ -77,6 +71,24 @@ footer {
     font-size: 120px;
 }
 
+.search-frame {
+    min-height: 400px;
+    height: auto;
+}
+
+.form-poster {
+    max-width: 80%;
+    max-height: 300px;
+}
+
+.plot {
+    height: 5em;
+}
+
+.film-form-field {
+    width: 100%;
+}
+
 #results {
     color: $primary;
 }
@@ -103,14 +115,15 @@ footer {
     }
 
     .film-card {
-        height: 230px;
         filter: grayscale(50%);
         transition-duration: 0.5s;
+        color: $light;
         &:hover {
             filter: grayscale(0%);
             box-shadow: (5px 5px 10px blue);
             transition-duration: 0.5s;
+            cursor: pointer;
+            color: white;
         }
     }
-
 }

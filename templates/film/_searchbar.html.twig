@@ -1,9 +1,7 @@
-<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-secondary">
-	<div>
-		<label for="searchTitle" class="d-none d-md-inline">Recherche
-		</label>
-		<input type="text" name="searchTitle" id="searchTitle" class="col-10 col-md-7">
-		<button class="btn btn-outline-primary btn-sm"><i class="bi bi-search"></i></button>
-		<div id="results" style="height: 100%"></div>
+	<h2><span class="badge bg-secondary position-absolute top-0 start-0 translate-middle-y">Recherche</span></h2>
+	<div class="py-3 p-lg-3" style="height: 90%">
+		<input type="text" name="searchTitle" id="searchTitle" class="col-10">
+		<button class="btn btn-outline-white btn-sm"><i class="bi bi-search col-1"></i></button>
+		<div class="overflow-scroll col-12 my-2" id="results" style="height: 300px"></div>
 	</div>
-</div>
+
