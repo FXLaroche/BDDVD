@@ -4,7 +4,6 @@ const year = document.getElementById('film_year');
 const plot = document.getElementById('film_plot');
 const poster = document.getElementById('film_poster');
 const omdbId = document.getElementById('film_omdb_id');
-const formPoster = document.getElementsByClassName('form-poster');
 
 if (field) {
     field.value = '';
@@ -66,8 +65,7 @@ if (field) {
                             .then((data) => {
                                 const filmData = JSON.parse(data);
 
-                                document.body.scrollTop = 0;
-                                document.documentElement.scrollTop = 0;
+                                document.documentElement.scrollTop = 600;
 
                                 title.value = filmData.Title;
                                 year.value = filmData.Year;
@@ -84,15 +82,5 @@ if (field) {
                 }
             })
             .catch((error) => console.log(error));
-    });
-}
-
-const originalPosterSource = formPoster[0].src;
-if (formPoster) {
-    poster.addEventListener('change', (e) => {
-        formPoster[0].src = poster.value;
-        formPoster[0].addEventListener('error', (err) => {
-            formPoster[0].src = originalPosterSource;
-        });
     });
 }

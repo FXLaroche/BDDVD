@@ -25,5 +25,8 @@
 			</div>
 		</div>
 	</div>
-	<a href="{{ path('film_index') }}">Retour à la liste complète</a>
+	<div class="container-fluid d-flex justify-content-center">
+		<a class="btn btn-secondary text-light mx-2" href="{{ path('film_index') }}">Tous les films</a>
+		<a class="btn btn-secondary text-light mx-2" href="{{ path('film_list', {'id': app.user.id}) }}">Ma liste</a>
+	</div>
 {% endblock %}

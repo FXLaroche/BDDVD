@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Borrowing;
 use App\Entity\User;
+use DateTime;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -18,14 +19,17 @@ class BorrowingType extends AbstractType
     {
         $builder
             ->add('borrowed', CheckboxType::class, [
-                'label' => 'Prêter: ',
+                'label' => ' Prêter ',
                 'mapped' => false,
                 'required' => false,
-                'value' =>false,
+                'value' => false,
+                'attr' => ['class' => 'btn-check'],
+                'label_attr' => ['class' => 'btn btn-primary bi bi-box-arrow-right text-light bg-secondary'],
             ])
             ->add('dateBorrowed', DateType::class, [
-                'label' => 'Le',
+                'label' => 'Le: ',
                 'widget' => 'single_text',
+                'attr' => ['class' => 'mx-2', 'value' => (new DateTime())->format('Y-m-d')],
             ])
             ->add('borrower', EntityType::class, [
                 'label' => 'À: ',
@@ -34,10 +38,11 @@ class BorrowingType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'by_reference' => true,
+                'attr' => ['class' => 'mx-2']
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Prêter',
-                'attr' => ['class' => "btn btn-primary"]
+                'attr' => ['class' => 'btn btn-secondary text-light']
             ])
         ;
     }

@@ -1,13 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Film{% endblock %}
+{% block title %}Edit Film
+{% endblock %}
 
 {% block body %}
-    <h1>Modifier un film</h1>
-
-    {{ include('film/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-
-    <a href="{{ path('film_index') }}">back to list</a>
-
-    {{ include('film/_delete_form.html.twig') }}
+	<div class="d-flex justify-content-center my-5">
+		<div class="col-12 col-md-10 col-lg-7 gy-3 gy-lg-0 pt-3 bg-light position-relative search-frame">
+			<div class="row row-cols-1 row-cols-md-2 ">
+				<div class="col-10 col-md-5 col-lg-6 col-xl-7 p-2 align-items-center justify-content-center container-fluid border border-secondary rounded-3 border-5">
+					{{ include('film/_form.html.twig', {button_label: "Modifier"}) }}
+					<div class="d-flex justify-content-center mt-3">
+						{{ include('film/_delete_form.html.twig') }}
+					</div>
+				</div>
+				<div class="col-12 col-md-7 col-lg-6 col-xl-5 container-fluid d-flex align-items-center justify-content-center my-2 my-md-0">
+					<img class="form-poster border border-secondary rounded-3 border-5" src="{{ asset('build/images/default.jpg') }}" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid d-flex justify-content-center mb-5">
+		<a class="btn btn-secondary text-light mx-2" href="{{ path('film_index') }}">Tous les films</a>
+		<a class="btn btn-secondary text-light mx-2" href="{{ path('film_list', {'id': app.user.id}) }}">Ma liste</a>
+	</div>
 {% endblock %}

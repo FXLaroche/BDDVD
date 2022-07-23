@@ -9,7 +9,9 @@ use App\Form\BorrowingType;
 use App\Form\FilmType;
 use App\Repository\BorrowingRepository;
 use App\Repository\FilmRepository;
+use App\Repository\UserRepository;
 use App\Service\ApiAccess;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -18,6 +20,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -64,6 +67,7 @@ class FilmController extends AbstractController
             if ($form->get('hasFilm')->getData() && $this->getUser() instanceof User) {
                 $film->addOwner($this->getUser());
             }
+
             $entityManager->persist($film);
             $entityManager->flush();
 
@@ -128,7 +132,9 @@ class FilmController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response {
         $borrowing = new Borrowing();
-        $form = $this->createForm(BorrowingType::class);
+        $date = (new DateTime())->format('U');
+        $form = $this->createForm(BorrowingType::class, null, ['attr' => ['valueAsNumber' => $date]]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

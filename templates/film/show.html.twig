@@ -4,44 +4,47 @@
 {% endblock %}
 
 {% block body %}
-	<h1>{{ film.title }}</h1>
-
-
-	<div class="container">
+	<div class="container mt-5">
 		<div class="row justify-content-center">
 
-			<div class="col-10 col-md-6">
+			<div class="col-10 col-md-6 d-flex justify-content-center align-items-center">
 
-				<img src="{{ film.poster }}" alt="Affiche de {{ film.title }}">
+				<img src="{{ film.poster }}" alt="Affiche de {{ film.title }}" class="border rounded-3 border-5 border-secondary">
 
 			</div>
-			<div class="col-10 col-md-6">
-				<table class="table">
-					<tbody>
-						<tr>
-							<th>Année:</th>
-							<td>{{ film.year }}</td>
-						</tr>
-						<tr>
-							<th>Résumé:</th>
-							<td>{{ film.plot }}</td>
-						</tr>
-					</tbody>
-				</table>
-				{% if app.user in film.owner %}
-					{% include "borrowing/_form.html.twig" %}
-				{% endif %}
+			<div class="col-10 col-md-6 col-lg-4 my-2">
+				<div class="border border-5 rounded-3 border-secondary px-4 py-1" id="year-plot">
+					<p class="fw-bold"> {{ film.year }}</p>
+					<hr>
+					<p>{{ film.plot }}</p>
+
+				</div>
+
+				<div class="my-2">
+					{% if app.user in film.owner %}
+						{% include "borrowing/_form.html.twig" %}
+					{% endif %}
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="mt-3 ms-5">
-		<a class="btn btn-primary" href="{{ path('film_list', {'id': app.user.id}) }}">Ma liste</a>
-		<a class="btn btn-primary" href="{{ path('film_index') }}">Tous les films</a>
+	<div class="container-fluid d-flex justify-content-center my-3">
 
-		<a class="btn btn-primary" href="{{ path('film_edit', {'id': film.id}) }}">Modifier</a>
+		<div>
+			<div>
+				<a class="btn btn-primary" href="{{ path('film_edit', {'id': film.id}) }}">Modifier</a>
+			</div>
+			<div class="my-2">
+				<a class="btn btn-primary" href="{{ path('film_list', {'id': app.user.id}) }}">Ma liste</a>
 
-		{{ include('film/_delete_form.html.twig') }}
-
+				<a class="btn btn-primary" href="{{ path('film_index') }}">Tous les films</a>
+			</div>
+			<div class="my-5 my-md-3">
+				{% if 'ROLE_ADMIN' in app.user.roles %}
+					{{ include('film/_delete_form.html.twig', {'button_label': 'Supprimer'}) }}
+				{% endif %}
+			</div>
+		</div>
 	</div>
-{% endblock %}
+</div>{% endblock %}
