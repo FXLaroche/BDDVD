@@ -1,5 +1,14 @@
 <nav class="navbar navbar-expand-md navbar-light">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="{{ path('home') }}"><img src="{{ asset('build/images/DBDVD.png') }}" alt="DBDVD"></a>
+		<a class="navbar-brand btnMenu" href="{{ path('home') }}"><img src="{{ asset('build/images/DBDVD.png') }}" alt="DBDVD"></a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+			<div class="navbar-nav">
+				<a href="{{ path('user_register') }}" class="text-decoration-none fw-bold me-5 btn btn-outline-secondary">S'inscrire</a>
+				<a href="{{ path('login') }}" class="text-decoration-none fw-bold me-5 btn btn-outline-secondary">Se connecter</a>
+			</div>
+		</div>
 	</div>
 </nav>

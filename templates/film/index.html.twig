@@ -4,53 +4,18 @@
 {% endblock %}
 
 {% block body %}
-	<h1>
-		{% if app.request.getPathInfo() == ("/film/user/" ~ app.user.id) %}
-			Mes DVDs
-		{% else if  app.request.getPathInfo() == "/film/" %}
-			Liste Complète
-		{% else %}
-			Liste de
-			{{ shownUser.username }}
-		{% endif %}
-	</h1>
-	{% if shownUser is defined and app.user == shownUser %}
-		<a class="btn btn-primary ms-2" href="{{ path('film_new') }}">Ajouter un film</a>
-	{% endif %}
-
-	<div class="container-fluid">
-		<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 gy-10 d-inline-flex">
+	<div class="container my-5">
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 gx-5 gy-1">
 			{% for film in films %}
-				<a class="text-decoration-none col film-card d-flex justify-content-center" href="{{ path('film_show', {'id': film.id}) }}">
-					<table>
-						<tbody>
-							<tr>
-								<td>
-									<img src="{{ film.poster }}" alt="Affiche de {{ film.poster }}" width="150">
-								</td>
-								<td class="d-flex text-white">
-									<table class="">
-										<thead>
-											<th class="fw-bold">
-												{{ film.title }}
-											</th>
-										</thead>
-										<tbody>
-											<tr>
-												<td>
-													{{ film.year }}
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</a>
+				{{ include("film/_film_mini.html.twig", {film: film}) }}
+
 			{% else %}
 				Aucun film pour cette personne.
 			{% endfor %}
+
+			{% if shownUser is defined and app.user == shownUser %}
+				{% include "film/newfilm.html.twig" %}
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

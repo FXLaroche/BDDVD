@@ -9,7 +9,9 @@ use App\Form\BorrowingType;
 use App\Form\FilmType;
 use App\Repository\BorrowingRepository;
 use App\Repository\FilmRepository;
+use App\Repository\UserRepository;
 use App\Service\ApiAccess;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -18,6 +20,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -32,6 +35,7 @@ class FilmController extends AbstractController
     {
         return $this->render('film/index.html.twig', [
             'films' => $filmRepository->findAll(),
+            'title' => "Liste Complète",
         ]);
     }
 
@@ -41,9 +45,11 @@ class FilmController extends AbstractController
     public function otherIndex(User $user, FilmRepository $filmRepository): Response
     {
         if ($user instanceof User) {
+            $title = $user === $this->getUser() ? 'Mes DVDs' : 'Liste de ' . $user->getUsername();
             return $this->render('film/index.html.twig', [
                 'films' => $filmRepository->findByOwner($user),
                 'shownUser' => $user,
+                'title' => $title,
             ]);
         }
     }
@@ -61,6 +67,7 @@ class FilmController extends AbstractController
             if ($form->get('hasFilm')->getData() && $this->getUser() instanceof User) {
                 $film->addOwner($this->getUser());
             }
+
             $entityManager->persist($film);
             $entityManager->flush();
 
@@ -70,6 +77,7 @@ class FilmController extends AbstractController
         return $this->renderForm('film/new.html.twig', [
             'film' => $film,
             'form' => $form,
+            'title' => 'Ajouter un film',
         ]);
     }
 
@@ -79,7 +87,7 @@ class FilmController extends AbstractController
     public function searchFilms(Request $request, ApiAccess $apiAccess): ?JsonResponse
     {
         $filmList = [];
-        $string = "Lord";
+        $string = "";
         if (null !== $request->request->get('searchTitle')) {
             $string = (string)$request->request->get('searchTitle');
 
@@ -124,7 +132,9 @@ class FilmController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response {
         $borrowing = new Borrowing();
-        $form = $this->createForm(BorrowingType::class);
+        $date = (new DateTime())->format('U');
+        $form = $this->createForm(BorrowingType::class, null, ['attr' => ['valueAsNumber' => $date]]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -137,7 +147,6 @@ class FilmController extends AbstractController
                     $form->get('dateBorrowed')->getData() instanceof DateTimeInterface
                 ) {
                     $borrowing->setBorrower($form->get('borrower')->getData())
-
                         ->setOwner($this->getUser())
                         ->setDateBorrowed($form->get('dateBorrowed')->getData())
                         ->setFilm($film);
@@ -154,9 +163,10 @@ class FilmController extends AbstractController
                 'borrow_form' => $form->createView(),
                 'film' => $film,
                 'borrowed' => $borrowedStatus,
+                'title' => $film->getTitle(),
             ]);
         } else {
-            return $this->render('film/show.html.twig');
+            return $this->render('film/show.html.twig', ['title' => "Titre"]);
         }
     }
 
@@ -191,6 +201,7 @@ class FilmController extends AbstractController
         return $this->renderForm('film/edit.html.twig', [
             'film' => $film,
             'form' => $form,
+            'title' => 'Modifier',
         ]);
     }
 

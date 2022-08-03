@@ -9,21 +9,44 @@
 {% endblock %}
 
 {% block body %}
-	{% include "_navbar_anonymous.html.twig" %}
-	<div class="container d-block align-items-center mt-5" id="title-div">
-		<h1 class="text-center fw-bold main-title fs-1">
-			DB<br>
-			DVD
-		</h1>
-
-		<h2 class="text-center">Les p'tits dvd à s'échanger</h2>
-		<div class="d-flex flex-column align-items-center justify-content-center">
-			<button class="btn btn-primary btn-lg d-block mb-4 mt-4">
-				<a href="{{ path('user_register') }}" class="text-secondary text-decoration-none fw-bold">S'inscrire</a>
-			</button>
-			<button class="btn btn-primary btn-lg d-block">
-				<a href="{{ path('login') }}" class="text-secondary text-decoration-none fw-bold mb-4 mt-4">Se connecter</a>
-			</button>
+	<div class="container my-5 text-justify border-top border-md-none border-secondary">
+		<div class="row">
+			<div class="col-12 col-md-6 border-md-end border-none">
+				<img src="{{ asset('build/images/home/dvdStack.jpg') }}" alt="stack dvds" class="img-fluid">
+			</div>
+			<div class="col-12 col-md-6 d-flex align-items-center border-md-start border-none">
+				<div>
+					<h2>Gérez votre collection</h2>
+					<p class="text-justify">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis sapiente ipsam quod est, aliquam consequatur at, non molestias laudantium tempore voluptas. Ullam corporis doloremque aspernatur quo rerum eius qui natus?</p>
+				</div>
+			</div>
+		</div>
+		<div class="row d-flex flex-md-row-reverse border-top border-md-none border-secondary my-3 my-md-0">
+			<div class="col-12 col-md-6 my-3 my-md-0 border-md-start border-none">
+				<img src="{{ asset('build/images/home/family.png') }}" alt="stack dvds" class="img-fluid">
+			</div>
+			<div class="col-12 col-md-6 d-flex align-items-md-center border-md-end border-none">
+				<div>
+					<h2 class="text-end">Échangez avec votre famille</h2>
+					<p class="text-justify">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis sapiente ipsam quod est, aliquam consequatur at, non molestias laudantium tempore voluptas. Ullam corporis doloremque aspernatur quo rerum eius qui natus?</p>
+				</div>
+			</div>
+		</div>
+		<div class="row my-3 my-md-0 border-top border-md-none border-secondary">
+			<div class="col-12 col-md-6 my-3 my-md-0 border-md-end border-none">
+				<img src="{{ asset('build/images/home/manyMovies.jpg') }}" alt="stack dvds" class="img-fluid">
+			</div>
+			<div class="col-12 col-md-6 d-flex align-items-center text-md-justified border-md-start border-none">
+				<div>
+					<h2>Accédez à une base gigantesque</h2>
+					<p class="text-justify">Notre base contient acutellement pas moins de {{ filmCount }} films, et elle ne cesse d'augmenter de jour en jour! Accédez directement à la collection de n'importe quel utilisateur de par le monde, tous les films sont disponibles! Directement alimentée par nos utilisateurs, vous pouvez ajouter vos propres films en seulement 2 clics! BD-DVD, c'est la base qui vous appartient!</p>
+				</div>
+			</div>
+		</div>
+		<div class="row d-flex text-center justify-content-center border-top border-secondary pt-3 my-5">
+			<h2>Inscrivez-vous maintenant</h2>
+			<p>Et profitez sans plus tarder de la plus grand collection de DVDs au monde: la vôtre!</p>
+			<a href="{{ path('user_register') }}" class="text-decoration-none fw-bold col-12 col-md-3 btn btn-lg btn-secondary text-light">S'inscrire</a>
 		</div>
 	</div>
 {% endblock %}

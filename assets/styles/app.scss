@@ -1,47 +1,141 @@
 @import 'variables.scss';
 @import '~bootstrap/scss/bootstrap';
 
-body, nav{
-    margin:0;
-    background: radial-gradient($slategray, $anthracite);
+body,
+nav {
+    margin: 0;
+    background: $light;
     background-size: contain;
-    color: $light;
+    color: $secondary;
 }
 
 body {
     height: 100%;
 }
 
-.filmResult:hover {
-    text-decoration: underline;
-    background-color: beige;
-    cursor: pointer;
+h2 {
+    font-variant-caps: small-caps;
+}
+
+footer {
+    height: 100px;
+    background-color: $primary;
 }
 
 .film-card {
-    border: 2px solid $slategray;
-    border-radius: 10%;
-    justify-content: center;
-    padding: 10px;
-    background: radial-gradient($slategray, $anthracite);
+    filter: grayscale(0%);
+    color: $light;
+}
+
+.banner {
+    height: 150px;
+    color: $light;
+    background-image: url('../images/dvdFlat.jpg');
+    background-repeat: no-repeat;
+    background-position: right;
+
+}
+
+.title {
+    height: 100%;
+    background: linear-gradient(to right, $primary, 90%, transparent);
+}
+
+.btnMenu {
+    transition-duration: 0.5s;
     &:hover {
-        background: radial-gradient($anthracite, $slategray);
+        transform: rotate(1turn);
     }
-
 }
 
-#results {
-    color: $dark;
+.btn {
+    width: 10em !important;
 }
 
-
-#title-div {
-    height: 100vh;
+.spyglass {
+    width: fit-content !important;
 }
 
-#register-form {
-    border: 2px solid $slategray;
+.text-justify {
+    text-align: justify;
+    text-justify: auto !important;
+}
+
+.security-form {
+    border: 2px solid $secondary;
     border-radius: 10%;
     padding: 10px;
     width: max-content;
+}
+
+.film {
+    max-width: 150px;
+    width: auto;
+    max-height: 220px;
+    height: auto;
+}
+
+.bi-file-plus {
+    font-size: 120px;
+}
+
+.search-frame {
+    min-height: 400px;
+    height: auto;
+}
+
+.form-poster {
+    max-width: 80%;
+    max-height: 300px;
+}
+
+.plot {
+    height: 5em;
+}
+
+.film-form-field {
+    width: 100%;
+}
+
+#results {
+    color: $primary;
+}
+
+#year-plot {
+    background: radial-gradient(ellipse, $light, 80%, lightgrey);
+}
+
+@media (min-width: 768px) {
+    .border-md-start {
+        border-left: solid $secondary 1px !important;
+    }
+
+    .border-md-end {
+        border-right: solid 1px $secondary  !important;
+    }
+
+    .border-md-top {
+        border-top: solid 1px $secondary  !important;
+    }
+
+    .border-md-bottom {
+        border-bottom: solid 1px $secondary  !important;
+    }
+
+    .border-md-none {
+        border: none !important;
+    }
+
+    .film-card {
+        filter: grayscale(50%);
+        transition-duration: 0.5s;
+        color: $light;
+        &:hover {
+            filter: grayscale(0%);
+            box-shadow: (5px 5px 10px blue);
+            transition-duration: 0.5s;
+            cursor: pointer;
+            color: white;
+        }
+    }
 }

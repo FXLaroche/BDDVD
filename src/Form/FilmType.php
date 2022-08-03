@@ -21,25 +21,25 @@ class FilmType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => "Titre: ",
                 'attr' => [
-                    'class' => 'col-11 d-block'
+                    'class' => ' film-form-field'
                 ]
             ])
             ->add('year', NumberType::class, [
                 'label' => "Année: ",
                 'attr' => [
-                    'class' => 'col-11'
+                    'class' => ' film-form-field'
                 ]
             ])
             ->add('plot', TextareaType::class, [
                 'label' => "Résumé: ",
                 'attr' => [
-                    'class' => 'col-11'
+                    'class' => 'plot film-form-field'
                 ]
             ])
             ->add('poster', TextType::class, [
                 'label' => "Affiche: ",
                 'attr' => [
-                    'class' => 'col-11'
+                    'class' => ' film-form-field'
                 ]
             ])
             ->add('hasFilm', CheckboxType::class, [

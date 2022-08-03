@@ -30,17 +30,20 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordHasher;
+    private $security;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
+        Security $security
     ) {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordHasher = $passwordHasher;
+        $this->security = $security;
     }
 
     public function supports(Request $request)
@@ -93,7 +96,8 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
             $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
             return new RedirectResponse($targetPath);
         }
-        return new RedirectResponse($this->urlGenerator->generate('user_index'));
+        $userId = $this->security->getUser()->getId();
+        return new RedirectResponse($this->urlGenerator->generate('film_list', ['id' => $userId]));
     }
 
     protected function getLoginUrl()

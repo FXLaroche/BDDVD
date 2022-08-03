@@ -1,30 +1,31 @@
 {% if borrowed is empty %}
-{{ form_start(borrow_form) }}
 
-{{ form_row(borrow_form.borrowed) }}
-<div id="borrowForm" hidden>
-	{{ form_row(borrow_form.dateBorrowed) }}
-	{{ form_row(borrow_form.borrower) }}
-	{{ form_row(borrow_form.submit) }}
+	{{ form_start(borrow_form) }}
 
-</div>
-{{ form_end(borrow_form) }}
+	{{ form_row(borrow_form.borrowed) }}
+	<div class="border border-5 rounded-3 border-secondary my-2 px-2 align-items-center" id="borrowForm" hidden>
+		<div class="py-2 justify-content-center">
+			{{ form_row(borrow_form.dateBorrowed) }}
+		</div>
+		<div class="py-2">
+			{{ form_row(borrow_form.borrower) }}
+		</div>
+		<div class="py-2 container-fluid d-flex justify-content-center">
+			{{ form_row(borrow_form.submit) }}
+		</div>
+	</div>
+	{{ form_end(borrow_form) }}
 
 {% else %}
-<p>Prêté ✅</p>
-<p>À: {{ borrowed.borrower.username }} </p>
-<p>Le: {{ borrowed.dateBorrowed|date("d/m/Y") }}</p>
+<div class="border border-5 rounded-3 border-secondary my-2 p-2 align-items-center">
+	<p>Prêté ✅</p>
+	<p>À:
+		{{ borrowed.borrower.username }}
+	</p>
+	<p>Le:
+		{{ borrowed.dateBorrowed|date("d/m/Y") }}</p>
 
-{% include "borrowing/_remove_borrowing_form.html.twig" %}
+	{% include "borrowing/_remove_borrowing_form.html.twig" %}
+
+	</div>
 {% endif %}
-
-<script>
-	console.log(document.getElementById('borrowing_borrowed').checked);
-document.getElementById('borrowing_borrowed').addEventListener('click', (e) => {
-if (!document.getElementById('borrowing_borrowed').checked) {
-document.getElementById('borrowForm').hidden = true;
-} else {
-document.getElementById('borrowForm').hidden = false;
-}
-})
-</script>
