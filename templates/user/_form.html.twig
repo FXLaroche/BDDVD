@@ -6,6 +6,8 @@
 	{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
 	{{ form_label(form.password) }}
 	{{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+	<div class="d-flex justify-content-center">
 	<button class="btn btn-lg btn-secondary text-light fw-bold mt-4">{{ button_label|default('Rejoindre') }}</button>
+	</div>
 </div>
 {{ form_end(form) }}

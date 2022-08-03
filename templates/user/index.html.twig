@@ -1,34 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}User index
+{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Liste</th>
-                <th>Emprunts</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    <a class="btn btn-primary" href="{{ path('film_list', {'id': user.id}) }}">Liste</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<div class="container my-5 d-flex justify-content-center">
+		<div class="border border-secondary border-5 rounded-3 col-12 col-md-10 col-xl-6">
+			{% for user in users %}
+				<div class="border border-start-0 border-end-0 row ms-1 me-1">
+					<div class="col-12 col-sm-6 align-self-center">
+						<div class="my-1">{{ user.username }}</div>
+						<div class="my-1">{{ user.email }}</div>
+					</div>
+					<div class="col-12 col-sm-6">
+						<div class="d-sm-flex justify-content-end me-1 my-1">
+							<a class="btn btn-primary" href="{{ path('film_list', {'id': user.id}) }}">Liste</a>
+						</div>
+						{% if user.id == app.user.id or 'ROLE_ADMIN' in app.user.roles  %}
+							<div class="d-sm-flex justify-content-end me-1 my-1">
+								<a class="btn btn-secondary text-light" href="{{ path('user_edit', {'id': user.id}) }}">Profil</a>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% else %}
+				no records found
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}
