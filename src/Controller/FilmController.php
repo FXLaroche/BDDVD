@@ -90,6 +90,7 @@ class FilmController extends AbstractController
         $string = "";
         if (null !== $request->request->get('searchTitle')) {
             $string = (string)$request->request->get('searchTitle');
+            $string = htmlentities($string);
 
             if (is_string($this->getParameter('app.api_key'))) {
                 $apiKey = $this->getParameter('app.api_key');
@@ -109,7 +110,7 @@ class FilmController extends AbstractController
     {
         $film = "";
         if (null !== $request->request->get('getFilm')) {
-            $filmId = trim((string)$request->request->get('getFilm'));
+            $filmId = trim(htmlentities((string)$request->request->get('getFilm')));
 
             if (is_string($this->getParameter('app.api_key'))) {
                 $apiKey = $this->getParameter('app.api_key');
