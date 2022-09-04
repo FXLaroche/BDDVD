@@ -1,4 +1,4 @@
 <form method="post" action="{{ path('borrowing_delete', {'id': borrowed.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ borrowed.id) }}">
-    <button  class="btn btn-secondary text-light"> <b class="bi-box-arrow-left"> Rendu!</b> </button>
+    <button  class="btn btn-secondary text-light"> <b class="bi-box-arrow-in-left"> Rendu!</b> </button>
 </form>

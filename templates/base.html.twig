@@ -1,41 +1,40 @@
 <!DOCTYPE html>
-<html lang="fr">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
-		<script src="/build/app.js"></script>
-		<title>
-			{% block title %}Projet 3 Name
+	<html lang="fr">
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			<link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
+			<script src="/build/app.js"></script>
+			<title>
+				{% block title %}
+					BD-DVD
+				{% endblock %}
+			</title>
+			{% block stylesheets %}
+				{{ encore_entry_link_tags('app') }}
 			{% endblock %}
-		</title>
-		{% block stylesheets %}
-			{{ encore_entry_link_tags('app') }}
-		{% endblock %}
-	</head>
+		</head>
 
-	<body class="d-flex flex-column min-vh-100 position-relative">
-		<header>
-			{% if is_granted('ROLE_USER') %}
-				{% include "_navbar.html.twig" %}
-			{% else %}
-				{% include "_navbar_anonymous.html.twig" %}
-			{% endif %}
-		</header>
-		{{ include("_banner.html.twig", {title: title}) }}
+		<body class="d-flex flex-column min-vh-100 position-relative">
+			<header>
+				{% if is_granted('ROLE_USER') %}
+					{% include "_navbar.html.twig" %}
+				{% else %}
+					{% include "_navbar_anonymous.html.twig" %}
+				{% endif %}
+			</header>
+			{{ include("_banner.html.twig", {title: title}) }}
 
-		<main class="flex-shrink-0">
-			{% block body %}
+			<main class="flex-shrink-0">
+				{% block body %}{% endblock %}
+			</main>
 
+			<footer class="mt-auto py-3">
+				{% include "footer.html.twig" %}
+			</footer>
+		</body>
+
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
 			{% endblock %}
-		</main>
-
-		<footer class="mt-auto py-3">
-			{% include "footer.html.twig" %}
-		</footer>
-	</body>
-
-	{% block javascripts %}
-		{{ encore_entry_script_tags('app') }}
-	{% endblock %}
-</html>
+	</html>

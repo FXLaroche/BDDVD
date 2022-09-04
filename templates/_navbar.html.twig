@@ -1,3 +1,11 @@
+{% set menu_link = {
+	'film_list': 'Mes DVDs',
+	'film_index': 'Tous les DVDs',
+	'film_new': 'Ajouter un film',
+	'user_index': 'Utilisateurs',
+	'logout': 'Déconnexion',
+} %}
+
 <nav class="navbar navbar-expand-md navbar-light">
 	<div class="container-fluid">
 		<a class="navbar-brand btnMenu" href="{{ path('film_list', {'id': app.user.id}) }}"><img src="{{ asset('build/images/DBDVD.png') }}" alt="DBDVD"></a>
@@ -6,11 +14,19 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
-				<a class="nav-link menu active" aria-current="page" href=" {{ path('film_list', {'id': app.user.id}) }} ">Mes DVDs</a>
-				<a class="nav-link menu" href="{{ path('film_index') }}">Tous les DVDs</a>
-				<a class="nav-link menu" href="{{ path('film_new') }}">Ajouter un film</a>
-				<a class="nav-link menu" href="{{ path('user_index') }}">Utilisateurs</a>
-				<a class="nav-link menu" href="{{ path('logout') }}" tabindex="-1" aria-disabled="true">Déconnexion</a>
+				{% for link, title in menu_link %}
+					{% if link == app.request.attributes.get('_route') %}
+						{% set class = 'nav-link menu active' %}
+						{% else %}
+							{% set class = 'nav-link menu' %}
+					{% endif %}
+					{% if link == 'film_list' %}
+						{% set href = path(link, {'id': app.user.id}) %}
+					{% else %}
+						{% set href = path(link) %}
+					{% endif %}
+					<a class="{{ class }}" href="{{ href }}">{{ title }}</a>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
