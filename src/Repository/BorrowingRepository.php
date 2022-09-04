@@ -21,7 +21,6 @@ class BorrowingRepository extends ServiceEntityRepository
         parent::__construct($registry, Borrowing::class);
     }
 
-   
     public function findByOwnerFilm(User $owner, Film $film)
     {
         return $this->createQueryBuilder('b')
